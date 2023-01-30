@@ -1,10 +1,10 @@
-import { ForecastPoint, StormGlass } from "@src/clients/stormGlass";
+import { ForecastPoint, StormGlass } from '@src/clients/stormGlass';
 
 export enum BeachPosition {
   S = 'S',
   E = 'E',
   W = 'W',
-  N = 'N'
+  N = 'N',
 }
 
 export interface Beach {
@@ -20,7 +20,9 @@ export interface BeachForecast extends Omit<Beach, 'user'>, ForecastPoint {}
 export class Forecast {
   constructor(protected stormGlass = new StormGlass()) {}
 
-  public async processForecastForBeaches(beaches: Beach[]): Promise<BeachForecast[]> {
+  public async processForecastForBeaches(
+    beaches: Beach[]
+  ): Promise<BeachForecast[]> {
     const pointsWithCorrectSources: BeachForecast[] = [];
 
     for (const beach of beaches) {
@@ -33,7 +35,7 @@ export class Forecast {
           position: beach.position,
           rating: 1,
         },
-        ...e
+        ...e,
       }));
 
       pointsWithCorrectSources.push(...enrichedBeachData);

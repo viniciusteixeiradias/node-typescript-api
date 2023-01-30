@@ -1,12 +1,14 @@
-import { StormGlass } from "@src/clients/stormGlass"
+import { StormGlass } from '@src/clients/stormGlass';
 import stormGlassNormalized3HoursFixture from '@test/fixtures/stromglass_normalized_response_3_hours.json';
-import { Beach, BeachPosition, Forecast } from "../forecast";
+import { Beach, BeachPosition, Forecast } from '../forecast';
 
-jest.mock('@src/clients/stormGlass')
+jest.mock('@src/clients/stormGlass');
 
 describe('Forecast Service', () => {
   it('should return the forecast for a list of beaches', async () => {
-    StormGlass.prototype.fetchPoints = jest.fn().mockResolvedValue(stormGlassNormalized3HoursFixture);
+    StormGlass.prototype.fetchPoints = jest
+      .fn()
+      .mockResolvedValue(stormGlassNormalized3HoursFixture);
 
     const beaches: Beach[] = [
       {
@@ -15,9 +17,9 @@ describe('Forecast Service', () => {
         name: 'Manly',
         position: BeachPosition.E,
         user: 'some-id',
-      }
-    ]
-    
+      },
+    ];
+
     const expectedResponse = [
       {
         lat: -33.792726,
@@ -70,5 +72,5 @@ describe('Forecast Service', () => {
     const beachesWithRating = await forecast.processForecastForBeaches(beaches);
 
     expect(beachesWithRating).toEqual(expectedResponse);
-  })
-})
+  });
+});
